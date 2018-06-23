@@ -1,0 +1,23 @@
+{
+  "name": "cows",
+  "version": "1.0.0",
+  "description": "card game cows",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/slaz66/cows.git"
+  },
+  "keywords": [
+    "cows",
+    "karves"
+  ],
+  "author": "paulius martis",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/slaz66/cows/issues"
+  },
+  "homepage": "https://github.com/slaz66/cows#readme"
+}
