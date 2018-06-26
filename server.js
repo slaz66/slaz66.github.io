@@ -91,7 +91,19 @@ app.get('/pagecount', function (req, res) {
     res.send('{ pageCount: -1 }');
   }
 });
+app.post('/quotes', (req, res) => {
+  if (!db) {
+    initDb(function(err){});
+  }
+  if(db){
+      db.collection('users').save(req.body, (err, result) => {
+        if (err) return console.log(err)
 
+        console.log('saved to database')
+        res.redirect('/')
+      })
+  }
+})
 // error handling
 app.use(function(err, req, res, next){
   console.error(err.stack);
