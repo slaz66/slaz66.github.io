@@ -73,11 +73,11 @@ app.get('/', function (req, res) {
         console.log('Error running count. Message:\n'+err);
       }
     users = db.collection('users').find()
-    res.send(result, {users: users});  
-      res.render('index.html', { pageCountMessage : count, dbInfo: dbDetails });
+    //res.send(result, {users: users});  
+      res.render('index.html', { pageCountMessage : count, dbInfo: dbDetails,users: users });
     });
   } else {
-    res.render('index.html', { pageCountMessage : null});
+    res.render('index.html', { pageCountMessage : null,users: null});
   }
 });
 
