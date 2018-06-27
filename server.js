@@ -64,6 +64,7 @@ app.get('/', function (req, res) {
   if (!db) {
     initDb(function(err){});
   }
+  var users = [{fuck: "off"}];
   if (db) {
     var col = db.collection('counts');
     // Create a document with request IP and current time of request
@@ -82,7 +83,7 @@ app.get('/', function (req, res) {
       res.render('index.html', { pageCountMessage : count, dbInfo: dbDetails,users: users });
     });
   } else {
-    res.render('index.html', { pageCountMessage : null,users: [{fuck: "off"}]});
+    res.render('index.html', { pageCountMessage : null,users: users});
   }
 });
 
