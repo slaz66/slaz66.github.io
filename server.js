@@ -73,6 +73,8 @@ app.get('/', function (req, res) {
       if (err) {
         console.log('Error running count. Message:\n'+err);
       }
+    users = db.collection('users').find()
+    res.send(result, {users: users});  
       res.render('index.html', { pageCountMessage : count, dbInfo: dbDetails });
     });
   } else {
@@ -107,14 +109,7 @@ app.post('/quotes', (req, res) => {
       })
   }
 })
-app.get('/Users',function(req,res){  
-  if (!db) {
-    initDb(function(err){});
-  }
-  users = db.collection('users').find()
-    res.send(result, {users: users});
-  
-}
+
 // error handling
 app.use(function(err, req, res, next){
     
