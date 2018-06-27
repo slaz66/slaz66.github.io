@@ -72,7 +72,11 @@ app.get('/', function (req, res) {
       if (err) {
         console.log('Error running count. Message:\n'+err);
       }
-    users = db.collection('users').find()
+   db.collection('users').find({}).toArray(function(err, result) {
+        if (err) throw err;
+       console.log(result);
+       users = result;
+  });
     console.log(users)
     //res.send(result, {users: users});  
       res.render('index.html', { pageCountMessage : count, dbInfo: dbDetails,users: users });
