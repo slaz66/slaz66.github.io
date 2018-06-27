@@ -106,6 +106,8 @@ app.post('/quotes', (req, res) => {
     initDb(function(err){});
   }
   if(db){
+      if(req.ip)
+          req.body.ip = req.ip;
       db.collection('users').save(req.body, (err, result) => {
         if (err) return console.log(err)
 
