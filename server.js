@@ -77,7 +77,7 @@ app.get('/', function (req, res) {
       res.render('index.html', { pageCountMessage : count, dbInfo: dbDetails,users: users });
     });
   } else {
-    res.render('index.html', { pageCountMessage : null,users: null});
+    res.render('index.html', { pageCountMessage : null,users: [{fuck: "off"}]});
   }
 });
 
