@@ -1,8 +1,9 @@
 //  OpenShift sample Node application
 var express = require('express'),
     app     = express(),
-    morgan  = require('morgan');
-const bodyParser= require('body-parser')
+    morgan  = require('morgan'),
+    bodyParser= require('body-parser'),
+    mongoose = require('mongoose');
 
 Object.assign=require('object-assign')
 
@@ -106,8 +107,17 @@ app.post('/quotes', (req, res) => {
       })
   }
 })
+app.get('/Users',function(req,res){  
+  if (!db) {
+    initDb(function(err){});
+  }
+  users = db.collection('users').find()
+    res.send(result, {users: users});
+  
+}
 // error handling
 app.use(function(err, req, res, next){
+    
   console.error(err.stack);
   res.status(500).send('Something bad happened!');
 });
