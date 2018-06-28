@@ -57,7 +57,12 @@ var initDb = function(callback) {
     console.log('Connected to MongoDB at: %s', mongoURL);
   });
 };
-
+var findUsers = function(callback) {
+  db.collection('users').find({}).toArray(function(err, result) {
+        if (err) throw err;
+       callback(result);       
+  });    
+}
 app.get('/', function (req, res) {
   // try to initialize the db on every request if it's not already
   // initialized.
@@ -73,11 +78,10 @@ app.get('/', function (req, res) {
       if (err) {
         console.log('Error running count. Message:\n'+err);
       }
-   db.collection('users').find({}).toArray(function(err, result) {
-        if (err) throw err;
-       console.log(result);
-       Array.prototype.push.apply(users,result);
-  });
+   findUsers(function(userresult){
+        Array.prototype.push.apply(users,userresult);
+   });
+   
     console.log(users)
     //res.send(result, {users: users});  
       res.render('index.html', { pageCountMessage : count, dbInfo: dbDetails,users: users });
