@@ -76,7 +76,7 @@ app.get('/', function (req, res) {
    db.collection('users').find({}).toArray(function(err, result) {
         if (err) throw err;
        console.log(result);
-       users.push(result);
+       Array.prototype.push.apply(users,result);
   });
     console.log(users)
     //res.send(result, {users: users});  
