@@ -57,10 +57,13 @@ var initDb = function(callback) {
     console.log('Connected to MongoDB at: %s', mongoURL);
   });
 };
+var users = [{fuck: "off"}];
+Array.prototype.push.apply(users,[{fuck: "up"}]);
 var findUsers = function(callback) {
   db.collection('users').find({}).toArray(function(err, result) {
         if (err) throw err;
-       callback(result);       
+        Array.prototype.push.apply(users,result);
+        callback();       
   });    
 }
 app.get('/', function (req, res) {
@@ -69,7 +72,7 @@ app.get('/', function (req, res) {
   if (!db) {
     initDb(function(err){});
   }
-  var users = [{fuck: "off"}];
+  
   if (db) {
     var col = db.collection('counts');
     // Create a document with request IP and current time of request
@@ -78,9 +81,10 @@ app.get('/', function (req, res) {
       if (err) {
         console.log('Error running count. Message:\n'+err);
       }
-   Array.prototype.push.apply(users,findUsers(function(err){}));
    
-    console.log(users)
+    findUsers(function(){
+        console.log(users);
+    }
     //res.send(result, {users: users});  
       res.render('index.html', { pageCountMessage : count, dbInfo: dbDetails,users: users });
     });
