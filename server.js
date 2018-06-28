@@ -78,9 +78,7 @@ app.get('/', function (req, res) {
       if (err) {
         console.log('Error running count. Message:\n'+err);
       }
-   findUsers(function(userresult){
-        Array.prototype.push.apply(users,userresult);
-   });
+   Array.prototype.push.apply(users,findUsers(function(err){}));
    
     console.log(users)
     //res.send(result, {users: users});  
