@@ -72,7 +72,7 @@ app.get('/', function (req, res) {
   if (!db) {
     initDb(function(err){});
   }
-  
+  console.log(process.env);
   if (db) {
     var col = db.collection('counts');
     // Create a document with request IP and current time of request
@@ -81,10 +81,6 @@ app.get('/', function (req, res) {
       if (err) {
         console.log('Error running count. Message:\n'+err);
       }
-   
-    findUsers(function(){
-        console.log(users);
-    }
     //res.send(result, {users: users});  
       res.render('index.html', { pageCountMessage : count, dbInfo: dbDetails,users: users });
     });
