@@ -59,30 +59,20 @@ var initDb = function(callback) {
 };
 var users = [{fuck: "off"}];
 Array.prototype.push.apply(users,[{fuck: "up"}]);
-var findUsers = function(callback) {
-  db.collection('users').find({}).toArray(function(err, result) {
-        if (err) throw err;
-        Array.prototype.push.apply(users,result);
-        callback();       
-  });    
-}
+
 app.get('/', function (req, res) {
   // try to initialize the db on every request if it's not already
   // initialized.
   if (!db) {
     initDb(function(err){});
   }
-  console.log(process.env);
   if (db) {
-    var col = db.collection('counts');
     // Create a document with request IP and current time of request
-    col.insert({ip: req.ip, date: Date.now()});
-    col.count(function(err, count){
-      if (err) {
-        console.log('Error running count. Message:\n'+err);
-      }
-    //res.send(result, {users: users});  
-      res.render('index.html', { pageCountMessage : count, dbInfo: dbDetails,users: users });
+    //res.send(result, {users: users});
+	db.collection('users').find({}).toArray(function(err, result) {
+        if (err) throw err;
+		res.render('index.html', { pageCountMessage : "test", dbInfo: dbDetails,users: results });
+		console.log(dbinfo)
     });
   } else {
     res.render('index.html', { pageCountMessage : null,users: users});
